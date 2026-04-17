@@ -1,17 +1,23 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import { AppContext } from '../Contexts/AppContext';
 import SiteLayout from '../Components/SiteLayout';
 
 export default function ProductDetail({ product }) {
   const { user, addToCart } = useContext(AppContext);
+  const [quantity, setQuantity] = useState(1);
+  const isInStock = Number(product.stock) > 0;
 
   const handleAddToCart = async () => {
     if (!user) {
       window.location.href = '/login';
       return;
     }
-    const success = await addToCart(product.id, 1);
+    if (!isInStock) {
+      return;
+    }
+
+    const success = await addToCart(product.id, quantity);
     if (success) {
       alert('Product added to cart!');
     } else {
@@ -59,7 +65,7 @@ export default function ProductDetail({ product }) {
                 </div>
                 <div>
                   <p className="font-semibold text-on-surface">Availability</p>
-                  <p>In Stock</p>
+                  <p>{isInStock ? `${product.stock} available` : 'Out of stock'}</p>
                 </div>
               </div>
             </div>
@@ -76,11 +82,22 @@ export default function ProductDetail({ product }) {
               </div>
               <div className="space-y-4">
                 <label className="block text-sm font-semibold text-on-surface mb-2">Quantity</label>
-                <input className="w-full rounded-full bg-surface-container-high px-5 py-4 outline-none border border-outline-variant/20" type="number" defaultValue={1} min={1} />
+                <input
+                  className="w-full rounded-full bg-surface-container-high px-5 py-4 outline-none border border-outline-variant/20"
+                  type="number"
+                  value={quantity}
+                  min={1}
+                  max={Math.max(Number(product.stock) || 1, 1)}
+                  onChange={(e) => setQuantity(Math.max(Number(e.target.value) || 1, 1))}
+                />
               </div>
               {user ? (
-                <button onClick={handleAddToCart} className="mt-6 w-full bg-primary text-on-primary py-4 rounded-full font-bold hover:bg-primary-dim transition-all">
-                  Add to Cart
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!isInStock}
+                  className="mt-6 w-full bg-primary text-on-primary py-4 rounded-full font-bold hover:bg-primary-dim transition-all disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isInStock ? 'Add to Cart' : 'Out of Stock'}
                 </button>
               ) : (
                 <Link href="/login" className="mt-6 block w-full text-center bg-primary text-on-primary py-4 rounded-full font-bold hover:bg-primary-dim transition-all">

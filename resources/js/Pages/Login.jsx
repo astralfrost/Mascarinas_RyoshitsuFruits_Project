@@ -79,7 +79,7 @@ export default function Login() {
                 <input
                   className="w-full rounded-full bg-surface-container-high px-5 py-4 outline-none border border-outline-variant/20 focus:border-primary transition-colors"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required

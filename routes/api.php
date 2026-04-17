@@ -11,8 +11,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{slug}', [ProductController::class, 'show']);
-Route::get('/api/products/{slug}', [ProductController::class, 'apiShow']);
+Route::get('/products/{slug}', [ProductController::class, 'apiShow']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
@@ -28,7 +27,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders/{id}', [OrderController::class, 'show']);
     Route::post('/checkout', [OrderController::class, 'checkout']);
     
-    Route::prefix('admin')->group(function () {
+    Route::middleware('admin')->prefix('admin')->group(function () {
         Route::prefix('products')->group(function () {
             Route::get('/', [ProductController::class, 'adminIndex']);
             Route::post('/', [ProductController::class, 'store']);

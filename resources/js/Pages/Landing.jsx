@@ -1,59 +1,16 @@
 import React, { useContext } from 'react';
 import { Head, Link } from '@inertiajs/react';
 import { AppContext } from '../Contexts/AppContext';
+import SiteNavbar from '../Components/SiteNavbar';
 
 export default function Landing() {
   const { user } = useContext(AppContext);
   return (
     <>
-      <Head title="RYŌSHITSU FRUITS" />
-      <nav className="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-outline-variant/10">
-        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <span className="font-headline text-2xl font-extrabold text-primary tracking-tight">
-              {false && <img alt="RYŌSHITSU FRUITS Logo" className="h-12 w-auto object-contain" src="" />}
-              <span className="font-headline text-2xl font-extrabold text-primary tracking-tight">RYŌSHITSU</span>
-            </span>
-            <div className="hidden md:flex items-center gap-6">
-              <Link href="/products" className="font-label text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                Store
-              </Link>
-              <Link href="/offers" className="font-label text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                Offers
-              </Link>
-              <Link href="/offers" className="font-label text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                Offers
-              </Link>
-              <Link href="/about" className="font-label text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                About
-              </Link>
-              <Link href="/contact" className="font-label text-sm font-semibold text-on-surface hover:text-primary transition-colors">
-                Contact
-              </Link>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center bg-surface-container-high px-4 py-2 rounded-full">
-              <span className="material-symbols-outlined text-on-surface-variant text-xl">search</span>
-              <input className="bg-transparent border-none focus:ring-0 text-sm font-body ml-2 w-48" placeholder="Search our orchard..." type="text" />
-            </div>
-            <Link href="/cart" className="p-2 hover:bg-surface-container rounded-full transition-colors relative">
-              <span className="material-symbols-outlined text-on-surface">shopping_cart</span>
-            </Link>
-            {user ? (
-              <Link href="/account" className="p-2 hover:bg-surface-container rounded-full transition-colors">
-                <span className="material-symbols-outlined text-on-surface">account_circle</span>
-              </Link>
-            ) : (
-              <Link href="/login" className="p-2 hover:bg-surface-container rounded-full transition-colors">
-                <span className="material-symbols-outlined text-on-surface">account_circle</span>
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+      <Head title="RYOSHITSU FRUITS" />
+      <SiteNavbar />
 
-      <main className="pt-20">
+      <main className="pt-24">
         <section className="relative min-h-[90vh] flex items-center px-6 overflow-hidden">
           <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 z-10 space-y-8">
@@ -322,3 +279,4 @@ export default function Landing() {
     </>
   );
 }
+

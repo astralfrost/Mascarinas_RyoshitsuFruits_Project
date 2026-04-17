@@ -85,7 +85,7 @@ export default function Products() {
     const checkAdmin = async () => {
       try {
         const response = await authAPI.getCurrentUser();
-        if (response.data?.email !== 'admin@gmail.com') {
+        if (!response.data?.is_admin) {
           window.location.href = '/login';
           return;
         }

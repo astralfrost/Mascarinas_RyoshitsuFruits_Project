@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -69,25 +68,16 @@ class AuthController extends Controller
 
     public function adminDashboard()
     {
-        if (!auth()->user()->is_admin) {
-            return Redirect::to('/account');
-        }
         return Inertia::render('Admin/Overview');
     }
 
     public function adminOrders()
     {
-        if (!auth()->user()->is_admin) {
-            return Redirect::to('/account');
-        }
         return Inertia::render('Admin/Orders');
     }
 
     public function adminProducts()
     {
-        if (!auth()->user()->is_admin) {
-            return Redirect::to('/account');
-        }
         return Inertia::render('Admin/Products');
     }
 }

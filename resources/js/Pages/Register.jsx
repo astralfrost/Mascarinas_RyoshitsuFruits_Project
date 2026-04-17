@@ -25,8 +25,6 @@ export default function Register() {
     try {
       const response = await authAPI.register(name, email, password, passwordConfirmation);
       localStorage.setItem('auth_token', response.data.token);
-      // Store the newly created user
-      localStorage.setItem('user', JSON.stringify(response.data.user));
       window.location.href = '/products';
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to create account. Please try again.');
@@ -96,7 +94,7 @@ export default function Register() {
                 <input
                   className="w-full rounded-full bg-surface-container-high px-5 py-4 outline-none border border-outline-variant/20 focus:border-primary transition-colors"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Create a password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -107,7 +105,7 @@ export default function Register() {
                 <input
                   className="w-full rounded-full bg-surface-container-high px-5 py-4 outline-none border border-outline-variant/20 focus:border-primary transition-colors"
                   type="password"
-                  placeholder="••••••••"
+                  placeholder="Repeat your password"
                   value={passwordConfirmation}
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
                   required

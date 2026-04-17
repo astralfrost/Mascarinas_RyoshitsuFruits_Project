@@ -106,7 +106,7 @@ export function AppProvider({ children }) {
   const register = useCallback(async (name, email, password) => {
     setLoading(true);
     try {
-      const response = await authAPI.register(name, email, password);
+      const response = await authAPI.register(name, email, password, password);
       setUser(response.data.user);
       await loadCart();
       return true;
@@ -120,12 +120,17 @@ export function AppProvider({ children }) {
 
   const logout = useCallback(async () => {
     try {
+      await authAPI.logout();
       localStorage.removeItem('auth_token');
       setUser(null);
       setCart([]);
       setCartTotal(0);
       window.dispatchEvent(new Event('logout'));
     } catch (err) {
+      localStorage.removeItem('auth_token');
+      setUser(null);
+      setCart([]);
+      setCartTotal(0);
       setError('Logout failed');
     }
   }, []);
